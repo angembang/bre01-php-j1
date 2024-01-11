@@ -1,0 +1,105 @@
+<?php
+$students = [
+	[
+		"firstName" => "James",
+		"lastName" => "Fields",
+		"grades" => [12, 11, 15],
+		"average" => -1
+	],
+	[
+		"firstName" => "Richard",
+		"lastName" => "Stein",
+		"grades" => [18, 12, 13],
+		"average" => -1
+	],
+	[
+		"firstName" => "Mark",
+		"lastName" => "Hartoff",
+		"grades" => [9, 11, 10],
+		"average" => -1
+	],
+	[
+		"firstName" => "Thomas",
+		"lastName" => "Nestle",
+		"grades" => [9, 8, 5],
+		"average" => -1
+	],
+	[
+		"firstName" => "Jeremy",
+		"lastName" => "Brent",
+		"grades" => [18, 15, 16],
+		"average" => -1
+	]
+];
+
+// Fonction pour calculer la moyenne des notes de chaque étudiant
+function average(array $grades): float
+{
+    $sum = 0;
+
+    foreach($grades as $grade)
+    {
+        $sum += $grade;
+    }
+    return $sum / count($grades);
+};
+
+?>
+
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>scorecard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<?php
+	foreach($students as $student)
+	{   
+		// Parcourir le tableau des étudiants pour calculer et stocker la moyenne de chaque étudiant dans $studentAvg
+		$studentAvg = round(average($student["grades"]), 2);
+		$class = "";
+		
+		if($studentAvg < 10)
+		{
+		   $class = "red";
+		} else if($studentAvg < 13)
+		{
+			$class = "orange";
+		} else
+		{
+			$class = "green";
+		}
+		?>
+
+   <article class="<?= $class ?>">
+   	
+	<header>
+		<h1><?= $student["firstName"]." ".$student["lastName"] ?></h1>
+	</header>
+	<section>
+		<h2>Notes : </h2>
+		<ul>
+		    <?php
+	        foreach($student["grades"] as $grade) 
+	        {
+	        ?>
+			<li><?= $grade ?></li>
+			
+			<?php
+	        }
+	        ?>
+		</ul>
+	</section>
+	<footer>
+		<h3><?= "Moyenne des notes: ".$studentAvg ?></h3>
+	</footer>
+</article> 
+<?php
+}
+?>
+</body>
+</html>
+
